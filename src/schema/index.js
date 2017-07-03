@@ -1,18 +1,13 @@
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 
-import { UserType } from './user';
+import { UserType, UserDAO } from './user';
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
     viewer: {
       type: UserType,
-      resolve: () => ({
-        id: 1,
-        name: 'Primeiro Usuário',
-        username: 'user1',
-        email: 'primeiro@email.com',
-      }),
+      resolve: async () => await UserDAO.findOne({ username: 'admin' }),
     },
   }),
 });
