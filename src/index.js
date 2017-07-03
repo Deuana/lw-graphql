@@ -4,7 +4,9 @@ import { graphql } from 'graphql';
 
 import config from '~/src/config';
 import schema from '~/src/schema';
+import { connectDB } from '~/src/db';
 
+connectDB();
 const app = express();
 app.use(bodyParser.json());
 

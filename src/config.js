@@ -5,6 +5,7 @@ const reducer = (obj, miss, key) => ({ ...obj, [key]: env(key, miss) });
 
 const config = reduce({
   PORT: 4000,
+  MONGOLAB_URI: '',
 }, reducer, {});
 
 export default config;
