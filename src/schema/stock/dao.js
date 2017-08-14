@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 import BaseDAO from '~/src/schema/base/dao';
-import { StockItemValues } from '~/src/schema/enums;
+import { StockItemValues } from '~/src/schema/enums';
 
 export default class StockDAO extends BaseDAO {
   static _model = mongoose.model('Stock', new mongoose.Schema({
