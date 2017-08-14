@@ -1,13 +1,5 @@
 import fs from 'fs';
 import { map, mapValues, upperFirst } from 'lodash';
-import { GraphQLEnumType } from 'graphql';
-
-const toGraphql = (name, enumeration) => (
-  new GraphQLEnumType({
-    name,
-    values: mapValues(enumeration, value => ({ value })),
-  })
-);
 
 fs.readdirSync(__dirname).forEach((file) => {
   if (file.match(/\.js$/) && file !== 'index.js') {
@@ -19,7 +11,6 @@ fs.readdirSync(__dirname).forEach((file) => {
       .join('');
 
     exports[name] = enumeration;
-    exports[`${name}Type`] = toGraphql(name, enumeration);
     exports[`${name}Values`] = map(enumeration);
   }
 });

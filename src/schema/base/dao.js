@@ -1,10 +1,10 @@
 export default class BaseDAO {
   static _model = {};
 
-  static async create(args) {
+  static create(args) {
     const instance = new this._model(args);
     instance.id = instance._id;
-    return await instance.save();
+    return instance.save();
   }
 
   static find(args) {
