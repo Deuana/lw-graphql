@@ -9,7 +9,7 @@
     "build": "npm run clean && npm run build:server",
     "clean": "rm -rf dist && mkdir dist",
     "build:server": "./node_modules/.bin/babel src -d dist",
-    "dev": "nodemon src/index.js --exec babel-node --presets es2015,stage-0",
+    "dev": "nodemon src/index.js --exec babel-node",
     "lint": "eslint src"
   },
   "repository": {
