@@ -23,17 +23,12 @@ export default class BaseController {
 
     const name = this._name;
     app.post(`/${name}`, this.create.bind(this));
-    app.get(`/${name}/:id`, this.read.bind(this));
     app.patch(`/${name}/:id`, this.update.bind(this));
     app.delete(`/${name}/:id`, this.delete.bind(this));
   }
 
   async create(req, res) {
     return res.json(await this._dao.create(req.body));
-  }
-
-  async read(req, res) {
-    return res.json(await this._dao.findOne({ id: req.params.id }));
   }
 
   async update(req, res) {
