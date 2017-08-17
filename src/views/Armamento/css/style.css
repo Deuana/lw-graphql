@@ -1,0 +1,48 @@
+#Form {
+    margin: auto;
+    margin-top: 50px;
+    width: 250px;
+    height: 215px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+    background-color: #0b2815;
+    border: solid;
+    border-width: 2px;
+    border-color: black;
+}
+
+    #Form .Titulo {
+        text-align: center;
+        font-size: 25px;
+        margin: 5px;
+    }
+
+    #Form .VerticalElement {
+        display: block;
+        margin: auto;
+        margin-top: 10px;
+        width: 90%;
+        height: 30px;
+        /*background-color: darkgray;*/
+    }
+
+        #Form .VerticalElement a {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+            height: 100%;
+            width: 100%;
+            background-color: gray;
+        }
+
+            #Form .VerticalElement a:hover {
+                background-color: white;
+            }
+
+    #Form .TwoElements a {
+        width: 49%;
+    }
+
+    #Form .ThreeElements a {
+        width: 32%;
+    }
