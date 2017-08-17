@@ -8,10 +8,9 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/principal.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../Public/css/style.css">
 
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-
+    <link rel="icon" href="../Public/images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -28,15 +27,44 @@
                 <a class="navbar-brand" href="#">Exército Brasileiro</a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
+            <!-- Navigation Bar -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Início<span class="sr-only">(current)</span></a></li>
+
+                    <!-- Usuário -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuário <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../Usuario/cadastrar.html">Cadastrar</a></li>
+                            <li><a href="#">Listar</a></li>
+                        </ul>
+                    </li>
+
                     <!-- Armamento -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Armamento <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="../Armamento/cadastroArmamento.html">Cadastrar</a></li>
+                            <li><a href="../Armamento/cadastrar.html">Cadastrar</a></li>
+                            <li><a href="#">Listar</a></li>
+                            <li><a href="#">Cautelar</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Reserva -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reserva <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../Reserva/cadastrar.html">Cadastrar</a></li>
+                            <li><a href="#">Listar</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Munição -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Munição <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../Municao/cadastrar.html">Cadastrar</a></li>
                             <li><a href="#">Listar</a></li>
                             <li><a href="#">Cautelar</a></li>
                         </ul>
@@ -44,9 +72,9 @@
 
                     <!-- Acessório -->
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Armamento <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Acessório <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Cadastrar</a></li>
+                            <li><a href="../Acessorio/cadastrar.html">Cadastrar</a></li>
                             <li><a href="#">Listar</a></li>
                             <li><a href="#">Cautelar</a></li>
                         </ul>
@@ -56,16 +84,24 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Militar <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Cadastrar</a></li>
+                            <li><a href="../Militar/cadastrar.html">Cadastrar</a></li>
                             <li><a href="#">Listar</a></li>
-                            <li><a href="#">Cautelar</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Cautela -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cautelas <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../Cautela/cadastrar.html">Cadastrar</a></li>
+                            <li><a href="#">Listar</a></li>
                         </ul>
                     </li>
                 </ul>
 
                 <!-- Right Corner Elements -->
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="../index.html">Logout</a></li>
+                    <li><a href="../Login/login.html">Logout</a></li>
                 </ul>
 
             </div>
