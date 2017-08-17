@@ -1,25 +1,33 @@
-export const route = (method, route) => (
+import { userLogged } from '~/src/utils/auth';
+
+export const route = (method, path, auth = userLogged) => (
   (target, property, descriptor) => {
-    const get = descriptor.value;
-    get.route = route;
+    function get(req, res) {
+      auth(req);
+      descriptor.value.bind(this)(req, res);
+    }
+    get.route = path;
     get.method = method;
     return { get };
   }
 );
 
 export default class BaseController {
-  constructor(name, controller, dao) {
-    this._name = name;
-    this._controller = controller;
-    this._dao = dao;
-  }
-
   buildRoutes(app) {
     const { prototype } = this._controller;
     Object.getOwnPropertyNames(prototype)
-      .map((methodName) => Object.getOwnPropertyDescriptor(prototype, methodName))
+      .map(methodName => Object.getOwnPropertyDescriptor(prototype, methodName))
       .filter(descriptor => descriptor.get)
-      .forEach(({ get }) => app[get.method](get.route, get.bind(this)));
+      .forEach(({ get }) => {
+        const fn = async (req, res) => {
+          try { await get.bind(this)(req, res); }
+          catch(e) {
+            const [code, message] = e.message.split(':');
+            res.status(code).send(message);
+          }
+        };
+        app[get.method](get.route, fn);
+      });
 
     const name = this._name;
     app.post(`/${name}`, this.create.bind(this));
