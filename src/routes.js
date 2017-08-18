@@ -5,4 +5,12 @@ export const configureRoutes = (app) => {
     const controller = new (require(file).default)();
     controller.buildRoutes(app);
   });
+
+  app.get('/', (req, res) => {
+    if (!req.jwt.payload.id) {
+      return res.render('user/login.html');
+    }
+
+    return res.render('index.html');
+  });
 };

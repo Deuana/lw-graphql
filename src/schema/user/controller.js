@@ -12,16 +12,16 @@ export default class UserController extends BaseController {
   async login(req, res) {
     const { username, password } = req.body;
     if (!username || !password) {
-      throw new Error('400:Form.UNFILLED');
+      res.status(400).render('user/login.html', { error: 'Form.UNFILLED' });
     }
 
     const user = await this._dao.authenticate(username, password);
     if (!user) {
-      throw new Error('422:User.WRONG_CREDENTIALS');
+      return res.status(422).render('user/login.html', { error: 'User.WRONG_CREDENTIALS' });
     }
 
-    const jwt = res.jwt({ id: user.id, name: user.name });
-    res.send(jwt.token);
+    res.jwt({ id: user.id, name: user.name });
+    res.redirect('/');
   }
 
   @route('get', '/user')

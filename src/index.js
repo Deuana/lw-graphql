@@ -10,7 +10,9 @@ import { configureRoutes } from '~/src/routes';
 
 connectDB();
 const app = express();
+app.use(express.static('src/public'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(jwt.init(config.SECRET_KEY));
 
