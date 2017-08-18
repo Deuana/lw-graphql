@@ -6,7 +6,7 @@ import jwt from 'jwt-express';
 
 import config from '~/src/config';
 import { connectDB } from '~/src/db';
-import { configureRoutes } from '~/src/routes';
+import { configureRoutes, configureNunjucks } from '~/src/setup';
 
 connectDB();
 const app = express();
@@ -16,11 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(jwt.init(config.SECRET_KEY));
 
-nunjucks.configure('src/templates', {
-  autoescape: true,
-  express: app,
-});
-
+configureNunjucks(app);
 configureRoutes(app);
 
 app.listen(config.PORT);

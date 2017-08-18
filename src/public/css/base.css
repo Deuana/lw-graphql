@@ -3,3 +3,26 @@ body {
   background-color: #0f3e1f;
   color: yellowgreen;
 }
+
+.alert-wrapper {
+  position: fixed;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.alert-wrapper .alert {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.form-group.mandatory {
+  position: relative;
+}
+
+.form-group.mandatory:after {
+  content: '*';
+  position: absolute;
+  right: -12px;
+  top: 6px;
+  color: red;
+}

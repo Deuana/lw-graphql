@@ -8,11 +8,16 @@ export default class UserController extends BaseController {
   _name = 'user';
   _dao = UserDAO;
 
+  @route('get', '/login', noAuth)
+  getLogin(req, res) {
+    return res.render('user/login.html');
+  }
+
   @route('post', '/login', noAuth)
-  async login(req, res) {
+  async postLogin(req, res) {
     const { username, password } = req.body;
     if (!username || !password) {
-      res.status(400).render('user/login.html', { error: 'Form.UNFILLED' });
+      return res.status(400).render('user/login.html', { error: 'Form.UNFILLED' });
     }
 
     const user = await this._dao.authenticate(username, password);

@@ -1,0 +1,14 @@
+{% macro alert(errorCode) %}
+  <div class="alert-wrapper">
+    <div class="alert alert-dismissable fade">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <div class="alert-message"></div>
+    </div>
+  </div>
+  <script>
+    setTimeout(function() {
+      $('.alert-message').html('{{errorCode | extractError}}');
+      $('.alert-wrapper .alert').addClass('alert-danger').addClass('show');
+    }, 500);
+  </script>
+{% endmacro %}
