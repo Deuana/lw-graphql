@@ -1,17 +1,19 @@
-{% extends "index.html" %}
+{% from "macros.html" import bind_patch_action %}
 
-{% block css %}
-  <link rel="stylesheet" href="/css/user/new.css" />
-{% endblock %}
+{% extends "index.html" %}
 
 {% block main %}
   <div class="NewUser card">
     <h4 class="card-header">Editar usuário</h4>
     <div class="card-body">
-      <form  action="/usuarios" method="PATCH">
+      <form id="updateUser" action="/usuarios/{{id}}">
         {% include "./_form.html" %}
         <button class="btn btn-success btn-block">Atualizar</button>
       </form>
     </div>
   </div>
+{% endblock %}
+
+{% block script %}
+  {{ bind_patch_action("updateUser", "/usuarios") }}
 {% endblock %}

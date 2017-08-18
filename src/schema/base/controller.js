@@ -24,17 +24,5 @@ export default class BaseController {
       .map(methodName => Object.getOwnPropertyDescriptor(prototype, methodName))
       .filter(descriptor => descriptor.get)
       .forEach(({ get }) => app[get.method](get.route, get.bind(this)));
-
-    const name = this._name;
-    app.patch(`/${name}/:id`, this.update.bind(this));
-    app.delete(`/${name}/:id`, this.delete.bind(this));
-  }
-
-  async update(req, res) {
-    return res.json(await this._dao.update(req.params.id, req.body));
-  }
-
-  async delete(req, res) {
-    return res.json(await this._dao.delete(req.params.id));
   }
 }

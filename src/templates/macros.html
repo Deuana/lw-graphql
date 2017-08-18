@@ -1,14 +1,51 @@
-{% macro alert(errorCode) %}
-  <div class="alert-wrapper">
-    <div class="alert alert-dismissable fade">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <div class="alert-message"></div>
+{% macro toast(message, color) %}
+  <script>
+    setTimeout(function() { toast('{{message}}', '{{color}}'); }, 500);
+  </script>
+{% endmacro %}
+
+{% macro delete_modal(message) %}
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">{{message}}</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger">Remover</button>
+      </div>
     </div>
   </div>
-  <script>
-    setTimeout(function() {
-      $('.alert-message').html('{{errorCode | extractError}}');
-      $('.alert-wrapper .alert').addClass('alert-danger').addClass('show');
-    }, 500);
-  </script>
+</div>
+{% endmacro %}
+
+{% macro bind_modal_triggers(nextUrl) %}
+<script>
+$('.modal-trigger').on('click', function() {
+  var actionUrl = $(this).data('url');
+  $('.modal .btn-danger').on('click', function() {
+    $.ajax({ url: actionUrl, method: 'DELETE' })
+      .done(function() { location.href = '{{nextUrl}}'; });
+  });
+});
+</script>
+{% endmacro %}
+
+{% macro bind_patch_action(id, nextUrl) %}
+<script>
+  $('#{{id}}').submit(function (e) {
+    var $this = $(this);
+    e.preventDefault();
+    $.ajax({
+      type: 'PATCH',
+      url: $this.attr('action'),
+      data: $this.serialize(),
+      success: function() {
+        location.href = '{{nextUrl}}';
+      },
+      error: function () {
+        toast('Ocorreu um erro. Favor tente novamente mais tarde.', 'danger');
+      },
+    });
+  });
+</script>
 {% endmacro %}

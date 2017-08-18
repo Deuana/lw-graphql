@@ -4,6 +4,18 @@ body {
   color: yellowgreen;
 }
 
+a {
+  color: yellowgreen;
+}
+
+a:hover {
+  color: greenyellow;
+}
+
+a.material-icons:hover {
+  text-decoration: none;
+}
+
 .alert-wrapper {
   position: fixed;
   width: 100%;
@@ -33,6 +45,10 @@ body {
   background-color: rgba(40, 167, 69, 0.4);
 }
 
+.modal {
+  color: black;
+}
+
 .LogoEscudo {
   text-align: center;
   margin: auto;
@@ -54,4 +70,9 @@ body {
   height: 50px;
   font-size: 23px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+td.editing-buttons {
+  padding: .75em 0;
+  width: 54px;
 }

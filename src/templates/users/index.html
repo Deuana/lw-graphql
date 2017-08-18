@@ -1,3 +1,5 @@
+{% from "macros.html" import delete_modal, bind_modal_triggers %}
+
 {% extends "index.html" %}
 
 {% block css %}
@@ -6,7 +8,8 @@
 
 {% block main %}
 <div class="UserList">
-  <table class="table">
+  {{delete_modal("Tem certeza que deseja remover o usuário?")}}
+  <table class="table table-hover table-striped">
     <thead>
       <tr>
         <th>Nome</th>
@@ -21,10 +24,26 @@
           <td>{{user.name}}</td>
           <td>{{user.email}}</td>
           <td>{{user.username}}</td>
+          <td class="editing-buttons">
+            <a href="/usuarios/{{user.id}}/editar" class="material-icons">mode_edit</a>
+            <a
+              class="modal-trigger material-icons"
+              href="#"
+              data-url="/usuarios/{{user.id}}"
+              data-toggle="modal"
+              data-target="#modal"
+            >
+              delete
+            </a>
+          </td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
   <a class="btn btn-success floating" href="/usuarios/novo">+</a>
 </div>
+{% endblock %}
+
+{% block script %}
+{{bind_modal_triggers("/usuarios")}}
 {% endblock %}

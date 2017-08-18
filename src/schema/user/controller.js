@@ -1,11 +1,11 @@
 import BaseController, { route } from '~/src/schema/base/controller';
 import { noAuth } from '~/src/utils/auth';
+import config from '~/src/config';
 
 import UserDAO from './dao';
 
 export default class UserController extends BaseController {
   _controller = UserController;
-  _name = 'usuarios';
   _dao = UserDAO;
 
   @route('get', '/login', noAuth)
@@ -43,20 +43,36 @@ export default class UserController extends BaseController {
   @route('post', '/usuarios')
   async create(req, res) {
     const { name, email, username, password } = req.body;
-    if (!name || !email || !username || !password) {
+
+    try {
+      await this._dao.create(name, email, username, password);
+    } catch(e) {
       return res.status(400).render('users/new.html', {
-        error: 'Form.UNFILLED',
+        error: e.message,
         ...req.body,
       });
     }
 
-    const user = await this._dao.create(req.body);
     res.redirect('/usuarios');
   }
 
   @route('get', '/usuarios/:id/editar')
-  async read(req, res) {
+  async edit(req, res) {
     const user = await this._dao.findOne({ id: req.params.id });
     return res.render('users/edit.html', user);
+  }
+
+  @route('patch', '/usuarios/:id')
+  async update(req, res) {
+    await this._dao.update(req.params.id, req.body)
+    return res.send('Ok');
+  }
+
+  @route('delete', '/usuarios/:id')
+  async delete(req, res) {
+    console.log('will delete', req.params.id);
+    await this._dao.remove({ id: req.params.id });
+    console.log('success');
+    return res.redirect('/usuarios');
   }
 }
