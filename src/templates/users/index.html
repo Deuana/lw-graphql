@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+
+{% block css %}
+  <link rel="stylesheet" href="/css/user.css" />
+{% endblock %}
+
+{% block main %}
+<div class="UserList">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Usuário</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+        <tr>
+          <td>{{user.name}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.username}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="btn btn-success floating" href="/usuarios/novo">+</a>
+</div>
+{% endblock %}

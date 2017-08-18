@@ -26,13 +26,8 @@ export default class BaseController {
       .forEach(({ get }) => app[get.method](get.route, get.bind(this)));
 
     const name = this._name;
-    app.post(`/${name}`, this.create.bind(this));
     app.patch(`/${name}/:id`, this.update.bind(this));
     app.delete(`/${name}/:id`, this.delete.bind(this));
-  }
-
-  async create(req, res) {
-    return res.json(await this._dao.create(req.body));
   }
 
   async update(req, res) {
