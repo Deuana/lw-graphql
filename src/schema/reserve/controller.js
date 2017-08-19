@@ -3,8 +3,9 @@ import ReserveDAO from './dao';
 
 export default class ReserveController extends BaseController {
   _controller = ReserveController;
-  _name = 'Reserve';
   _dao = ReserveDAO;
+  _baseRoute = '/reservas';
+  _templatePath = 'reserves';
 
   @route('get', '/reserve')
   async index(_, res) {

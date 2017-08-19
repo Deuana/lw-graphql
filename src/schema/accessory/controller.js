@@ -3,8 +3,9 @@ import AccessoryDAO from './dao';
 
 export default class AccessoryController extends BaseController {
   _controller = AccessoryController;
-  _name = 'accessory';
   _dao = AccessoryDAO;
+  _baseRoute = '/acessorios';
+  _templatePath = 'accessories';
 
   @route('get', '/accessory')
   async index(_, res) {

@@ -3,8 +3,9 @@ import AmmoDAO from './dao';
 
 export default class AmmoController extends BaseController {
   _controller = AmmoController;
-  _name = 'ammo';
   _dao = AmmoDAO;
+  _baseRoute = '/municoes';
+  _templatePath = 'ammo';
 
   @route('get', '/ammo')
   async index(req, res) {

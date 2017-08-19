@@ -3,8 +3,9 @@ import VeteranDAO from './dao';
 
 export default class VeteranController extends BaseController {
   _controller = VeteranController;
-  _name = 'veteran';
   _dao = VeteranDAO;
+  _baseRoute = '/militares';
+  _templatePath = 'veterans';
 
   @route('get', '/veteran')
   async index(_, res) {

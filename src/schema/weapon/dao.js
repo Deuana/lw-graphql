@@ -9,7 +9,7 @@ export default class WeaponDAO extends BaseDAO {
     manufacturer: String,
   }));
 
-  static async create(serialNumber, model, manufacturer) {
+  static async create({ serialNumber, model, manufacturer }) {
     if (!serialNumber || !model || !manufacturer) {
       throw new Error('Form.UNFILLED');
     }

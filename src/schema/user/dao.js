@@ -19,7 +19,7 @@ export default class UserDAO extends BaseDAO {
     return match && user;
   }
 
-  static async create(name, email, username, password) {
+  static async create({ name, email, username, password }) {
     if (!name || !email || !username || !password) {
       throw new Error('Form.UNFILLED');
     }
