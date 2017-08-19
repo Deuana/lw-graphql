@@ -13,6 +13,10 @@ export default class UserDAO extends BaseDAO {
     passwordHash: String,
   }));
 
+  static all() {
+    return this.find({ username: { $ne: 'admin' } });
+  }
+
   static async authenticate(username, password) {
     const user = await this._model.findOne({ username });
     const match = user && await bcrypt.compare(password, user.passwordHash);

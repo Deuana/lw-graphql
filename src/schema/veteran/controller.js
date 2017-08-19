@@ -7,12 +7,6 @@ export default class VeteranController extends BaseController {
   _baseRoute = '/militares';
   _templatePath = 'veterans';
 
-  @route('get', '/veteran')
-  async index(_, res) {
-    const veteran = await this._dao.find({});
-    return res.render('veteran/index.html', { veteran });
-  }
-
   @route('get', '/veteran/new')
   new(_, res) {
     return res.render('veteran/new.html');

@@ -7,12 +7,6 @@ export default class WeaponController extends BaseController {
   _baseRoute = '/armamentos';
   _templatePath = 'weapons';
 
-  @route('get', '/armamentos')
-  async index(_, res) {
-    const weapons = await this._dao.find({});
-    return res.render('weapons/index.html', { weapons });
-  }
-
   @route('get', '/armamentos/novo')
   new(_, res) {
     return res.render('weapons/new.html');

@@ -27,9 +27,16 @@ export default class BaseController {
       .forEach(({ get }) => app[get.method](get.route, get.bind(this)));
 
     const baseRoute = this._baseRoute;
+    app.get(baseRoute, this.index.bind(this));
     app.post(baseRoute, this.create.bind(this));
     app.patch(`${baseRoute}/:id`, this.update.bind(this));
     app.delete(`${baseRoute}/:id`, this.delete.bind(this));
+  }
+
+  async index(req, res) {
+    return res.render(`${this._templatePath}/index.html`, {
+      [this._templatePath]: await this._dao.all(),
+    });
   }
 
   async create(req, res) {

@@ -7,12 +7,6 @@ export default class ReserveController extends BaseController {
   _baseRoute = '/reservas';
   _templatePath = 'reserves';
 
-  @route('get', '/reserve')
-  async index(_, res) {
-    const reserve = await this._dao.find({});
-    return res.render('reserve/index.html', { reserve });
-  }
-
   @route('get', '/reserve/new')
   new(_, res) {
     return res.render('reserve/new.html');

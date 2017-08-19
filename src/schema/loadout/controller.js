@@ -7,12 +7,6 @@ export default class LoadoutController extends BaseController {
   _baseRoute = '/cautelas';
   _templatePath = 'loadouts';
 
-  @route('get', '/cautelas')
-  async index(_, res) {
-    const loadout = await this._dao.find({});
-    return res.render('loadout/index.html', { loadout });
-  }
-
   @route('get', '/cautelas/novo')
   new(_, res) {
     return res.render('loadout/new.html');

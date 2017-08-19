@@ -7,6 +7,10 @@ export default class BaseDAO {
     return instance.save();
   }
 
+  static all() {
+    return this._model.find({}).exec();
+  }
+
   static find(args) {
     return this._model.find(args).exec();
   }

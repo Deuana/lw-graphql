@@ -31,12 +31,6 @@ export default class UserController extends BaseController {
     res.redirect('/');
   }
 
-  @route('get', '/usuarios')
-  async index(req, res) {
-    const users = await this._dao.find({ username: { $ne: 'admin' } });
-    return res.render('users/index.html', { users });
-  }
-
   @route('get', '/usuarios/novo')
   async new(req, res) {
     return res.render('users/new.html');

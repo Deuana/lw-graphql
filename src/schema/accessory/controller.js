@@ -7,12 +7,6 @@ export default class AccessoryController extends BaseController {
   _baseRoute = '/acessorios';
   _templatePath = 'accessories';
 
-  @route('get', '/accessory')
-  async index(_, res) {
-    const accessories = await this._dao.find({});
-    return res.render('accessory/index.html', { accessories });
-  }
-
   @route('get', '/accessory/new')
   new(_, res) {
     return res.render('accessory/new.html');

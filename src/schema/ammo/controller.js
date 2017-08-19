@@ -7,12 +7,6 @@ export default class AmmoController extends BaseController {
   _baseRoute = '/municoes';
   _templatePath = 'ammo';
 
-  @route('get', '/ammo')
-  async index(req, res) {
-    const ammo = await this._dao.find({});
-    return res.render('ammo/index.html', { ammo });
-  }
-
   @route('get', '/ammo/new')
   new(_, res) {
     return res.render('ammo/new.html');
