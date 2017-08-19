@@ -3,10 +3,10 @@
 {% extends "index.html" %}
 
 {% block main %}
-  <div class="EditUser card">
-    <h4 class="card-header">Editar usuário</h4>
+  <div class="EditWeapon card">
+    <h4 class="card-header">Editar armamento</h4>
     <div class="card-body">
-      <form id="updateUser" action="/usuarios/{{id}}">
+      <form id="updateWeapon" action="/armamentos/{{id}}">
         {% include "./_form.html" %}
         <button class="btn btn-success btn-block">Atualizar</button>
       </form>
@@ -15,5 +15,5 @@
 {% endblock %}
 
 {% block script %}
-  {{ bind_patch_action("updateUser", "/usuarios") }}
+  {{ bind_patch_action("updateWeapon", "/armamentos") }}
 {% endblock %}

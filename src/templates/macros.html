@@ -49,3 +49,40 @@ $('.modal-trigger').on('click', function() {
   });
 </script>
 {% endmacro %}
+
+{% macro render_index(controller, attributes, items) %}
+  {{delete_modal("Tem certeza que deseja remover?")}}
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        {% for attribute in attributes %}
+        <th>{{attribute.label}}</th>
+        {% endfor %}
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+        <tr>
+          {% for attribute in attributes %}
+          <td>{{item[attribute.key]}}</td>
+          {% endfor %}
+          <td class="editing-buttons">
+            <a href="/{{controller}}/{{item.id}}/editar" class="material-icons">mode_edit</a>
+            <a
+              class="modal-trigger material-icons"
+              href="#"
+              data-url="/{{controller}}/{{item.id}}"
+              data-toggle="modal"
+              data-target="#modal"
+            >
+              delete
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="btn btn-success floating" href="/{{controller}}/novo">+</a>
+  {{bind_modal_triggers("/" + controller)}}
+{% endmacro %}

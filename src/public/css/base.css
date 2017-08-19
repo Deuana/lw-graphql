@@ -76,3 +76,8 @@ td.editing-buttons {
   padding: .75em 0;
   width: 54px;
 }
+
+.index-table {
+  width: 80%;
+  margin: 24px auto;
+}

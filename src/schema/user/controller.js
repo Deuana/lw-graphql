@@ -1,3 +1,5 @@
+import { pickBy, identity } from 'lodash';
+
 import BaseController, { route } from '~/src/schema/base/controller';
 import { noAuth } from '~/src/utils/auth';
 import config from '~/src/config';
@@ -64,15 +66,13 @@ export default class UserController extends BaseController {
 
   @route('patch', '/usuarios/:id')
   async update(req, res) {
-    await this._dao.update(req.params.id, req.body)
+    await this._dao.update(req.params.id, pickBy(req.body, identity));
     return res.send('Ok');
   }
 
   @route('delete', '/usuarios/:id')
   async delete(req, res) {
-    console.log('will delete', req.params.id);
     await this._dao.remove({ id: req.params.id });
-    console.log('success');
-    return res.redirect('/usuarios');
+    return res.send('Ok');
   }
 }

@@ -24,8 +24,7 @@ export default class UserDAO extends BaseDAO {
       throw new Error('Form.UNFILLED');
     }
 
-    const user = await this._model.findOne({ username });
-    if (user) {
+    if (await this._model.findOne({ username })) {
       throw new Error('User.ALREADY_EXISTS');
     }
 

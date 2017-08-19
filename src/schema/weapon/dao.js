@@ -8,5 +8,20 @@ export default class WeaponDAO extends BaseDAO {
     model: String,
     manufacturer: String,
   }));
+
+  static async create(serialNumber, model, manufacturer) {
+    if (!serialNumber || !model || !manufacturer) {
+      throw new Error('Form.UNFILLED');
+    }
+
+    if (await this._model.findOne({ serialNumber })) {
+      throw new Error('Weapon.ALREADY_EXISTS');
+    }
+
+    const instance = new this._model({ serialNumber, model, manufacturer });
+    instance.id = instance._id;
+
+    return await instance.save();
+  }
 }
 
