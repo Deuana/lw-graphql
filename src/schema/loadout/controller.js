@@ -6,21 +6,4 @@ export default class LoadoutController extends BaseController {
   _dao = LoadoutDAO;
   _baseRoute = '/cautelas';
   _templatePath = 'loadouts';
-
-  @route('get', '/cautelas/novo')
-  new(_, res) {
-    return res.render('loadout/new.html');
-  }
-
-  @route('get', '/cautelas/:id')
-  async read(req, res) {
-    const loadout = await this._dao.findOne({ id: req.params.id });
-    return res.render('loadout/read.html', { loadout });
-  }
-
-  @route('get', '/cautelas/:id/editar')
-  async edit(req, res) {
-    const loadout = await this._dao.findOne({ id: req.params.id });
-    return res.render('loadout/edit.html', { loadout });
-  }
 }

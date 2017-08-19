@@ -6,21 +6,4 @@ export default class AccessoryController extends BaseController {
   _dao = AccessoryDAO;
   _baseRoute = '/acessorios';
   _templatePath = 'accessories';
-
-  @route('get', '/accessory/new')
-  new(_, res) {
-    return res.render('accessory/new.html');
-  }
-
-  @route('get', '/accessory/:id')
-  async read(req, res) {
-    const accessory = await this._dao.findOne({ id: req.params.id });
-    return res.render('accessory/read.html', { accessory });
-  }
-
-  @route('get', '/accessory/:id/edit')
-  async edit(req, res) {
-    const accessory = await this._dao.findOne({ id: req.params.id });
-    return res.render('accessory/edit.html', { accessory });
-  }
 }

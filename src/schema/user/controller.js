@@ -30,15 +30,4 @@ export default class UserController extends BaseController {
     res.jwt({ id: user.id, name: user.name });
     res.redirect('/');
   }
-
-  @route('get', '/usuarios/novo')
-  async new(req, res) {
-    return res.render('users/new.html');
-  }
-
-  @route('get', '/usuarios/:id/editar')
-  async edit(req, res) {
-    const user = await this._dao.findOne({ id: req.params.id });
-    return res.render('users/edit.html', user);
-  }
 }

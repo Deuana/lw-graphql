@@ -28,15 +28,20 @@ export default class BaseController {
 
     const baseRoute = this._baseRoute;
     app.get(baseRoute, this.index.bind(this));
+    app.get(`${baseRoute}/novo`, this.new.bind(this));
     app.post(baseRoute, this.create.bind(this));
+    app.get(`${baseRoute}/:id/editar`, this.edit.bind(this));
     app.patch(`${baseRoute}/:id`, this.update.bind(this));
     app.delete(`${baseRoute}/:id`, this.delete.bind(this));
   }
 
   async index(req, res) {
-    return res.render(`${this._templatePath}/index.html`, {
-      [this._templatePath]: await this._dao.all(),
-    });
+    const instances = { [this._templatePath]: await this._dao.all() };
+    return res.render(`${this._templatePath}/index.html`, instances);
+  }
+
+  async new(_, res) {
+    return res.render(`${this._templatePath}/new.html`);
   }
 
   async create(req, res) {
@@ -50,6 +55,11 @@ export default class BaseController {
     }
 
     res.redirect(this._baseRoute);
+  }
+
+  async edit(req, res) {
+    const instance = await this._dao.findOne({ id: req.params.id });
+    return res.render(`${this._templatePath}/edit.html`, instance);
   }
 
   async update(req, res) {
