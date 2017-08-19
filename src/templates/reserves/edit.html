@@ -1,0 +1,19 @@
+{% from "macros.html" import bind_patch_action %}
+
+{% extends "index.html" %}
+
+{% block main %}
+  <div class="EditReserve card">
+    <h4 class="card-header">Editar reserva</h4>
+    <div class="card-body">
+      <form id="updateReserve" action="/reservas/{{id}}">
+        {% include "./_form.html" %}
+        <button class="btn btn-success btn-block">Atualizar</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  {{ bind_patch_action("updateReserve", "/reservas") }}
+{% endblock %}
