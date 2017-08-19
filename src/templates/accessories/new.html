@@ -1,10 +1,10 @@
 {% extends "index.html" %}
 
 {% block main %}
-  <div class="NewReserve card">
-    <h4 class="card-header">Nova reserva</h4>
+  <div class="NewAccessory card">
+    <h4 class="card-header">Novo acessório</h4>
     <div class="card-body">
-      <form  action="/reservas" method="POST">
+      <form  action="/acessorios" method="POST">
         {% include "./_form.html" %}
         <button class="btn btn-success btn-block">Cadastrar</button>
       </form>
