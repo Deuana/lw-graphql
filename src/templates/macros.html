@@ -22,6 +22,7 @@
 <script>
 $('.modal-trigger').on('click', function() {
   var actionUrl = $(this).data('url');
+  $('.modal .btn-danger').unbind('click');
   $('.modal .btn-danger').on('click', function() {
     $.ajax({ url: actionUrl, method: 'DELETE' })
       .done(function() { location.href = '{{nextUrl}}'; });
