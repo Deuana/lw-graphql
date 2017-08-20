@@ -1,5 +1,16 @@
   <div class="form-group mandatory">
-    <input name="rank" type="text" class="form-control" placeholder="Posto/Graduação" value="{{rank}}">
+    <select name="rank" class="form-control">
+      <option disabled>Posto ou Graduação</option>
+      {% for groupedRank in groupedRanks %}
+        <optgroup label="{{groupedRank.label}}">
+          {% for iRank in groupedRank.ranks %}
+            <option value="{{iRank}}" {{"selected" if iRank == rank else ""}}>
+              {{Rank[iRank]}}
+            </option>
+          {% endfor %}
+        </optgroup>
+      {% endfor %}
+    </select>
   </div>
   <div class="form-group mandatory">
     <input name="nickname" type="text" class="form-control" placeholder="Nome de Guerra" value="{{nickname}}">

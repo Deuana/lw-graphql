@@ -8,6 +8,7 @@
     { 'label': 'Posto/Graduação', 'key': 'rank' },
     { 'label': 'Nome de Guerra', 'key': 'nickname' }
   ] %}
-  {{render_index('militares', attributes, veterans)}}
+  {% set dicts = { 'rank': Rank } %}
+  {{render_index('militares', attributes, veterans, dicts)}}
 </div>
 {% endblock %}

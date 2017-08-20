@@ -40,18 +40,16 @@ export default class BaseController {
     return res.render(`${this._templatePath}/index.html`, instances);
   }
 
-  async new(_, res) {
-    return res.render(`${this._templatePath}/new.html`);
+  new(_, res, ctx = {}) {
+    return res.render(`${this._templatePath}/new.html`, ctx);
   }
 
   async create(req, res) {
     try {
       await this._dao.create(req.body);
     } catch(e) {
-      return res.status(400).render(`${this._templatePath}/new.html`, {
-        error: e.message,
-        ...req.body,
-      });
+      res.status(400);
+      return await this.new(req, res, { error: e.message, ...req.body });
     }
 
     res.redirect(this._baseRoute);
