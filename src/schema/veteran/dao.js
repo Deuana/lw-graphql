@@ -7,5 +7,14 @@ export default class VeteranDAO extends BaseDAO {
     rank: String,
     nickname: String,
   }));
-}
 
+  static async create({ rank, nickname }) {
+    if (!rank || !nickname) {
+      throw new Error('Form.UNFILLED');
+    }
+
+    const instance = new this._model({ rank, nickname });
+    instance.id = instance._id;
+    return await instance.save();
+  }
+}

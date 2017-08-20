@@ -1,0 +1,13 @@
+{% from "macros.html" import render_index, bind_modal_triggers %}
+
+{% extends "index.html" %}
+
+{% block main %}
+<div class="VeteranList index-table">
+  {% set attributes = [
+    { 'label': 'Posto/Graduação', 'key': 'rank' },
+    { 'label': 'Nome de Guerra', 'key': 'nickname' }
+  ] %}
+  {{render_index('militares', attributes, veterans)}}
+</div>
+{% endblock %}
