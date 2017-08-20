@@ -1,0 +1,13 @@
+{% from "macros.html" import render_index, bind_modal_triggers %}
+
+{% extends "index.html" %}
+
+{% block main %}
+<div class="AmmoList index-table">
+  {% set attributes = [
+    { 'label': 'Calibre', 'key': 'caliber' },
+    { 'label': 'Descrição', 'key': 'description' }
+  ] %}
+  {{render_index('municoes', attributes, ammo)}}
+</div>
+{% endblock %}

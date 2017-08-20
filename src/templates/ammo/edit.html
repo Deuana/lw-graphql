@@ -1,0 +1,19 @@
+{% from "macros.html" import bind_patch_action %}
+
+{% extends "index.html" %}
+
+{% block main %}
+  <div class="EditAmmo card">
+    <h4 class="card-header">Editar munição</h4>
+    <div class="card-body">
+      <form id="updateAmmo" action="/municoes/{{id}}">
+        {% include "./_form.html" %}
+        <button class="btn btn-success btn-block">Atualizar</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  {{ bind_patch_action("updateAmmo", "/municoes") }}
+{% endblock %}

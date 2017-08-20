@@ -7,5 +7,14 @@ export default class AmmoDAO extends BaseDAO {
     caliber: String,
     description: String,
   }));
-}
 
+  static async create({ caliber, description }) {
+    if (!caliber || !description) {
+      throw new Error('Form.UNFILLED');
+    }
+
+    const instance = new this._model({ caliber, description });
+    instance.id = instance._id;
+    return await instance.save();
+  }
+}
