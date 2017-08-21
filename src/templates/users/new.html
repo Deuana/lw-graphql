@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+
+{% block main %}
+  <div class="NewUser card">
+    <h4 class="card-header">Novo usuário</h4>
+    <div class="card-body">
+      <form  action="/usuarios" method="POST">
+        {% include "./_form.html" %}
+        <button class="btn btn-success btn-block">Criar</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

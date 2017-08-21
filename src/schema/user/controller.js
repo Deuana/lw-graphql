@@ -1,38 +1,33 @@
 import BaseController, { route } from '~/src/schema/base/controller';
 import { noAuth } from '~/src/utils/auth';
+import config from '~/src/config';
 
 import UserDAO from './dao';
 
 export default class UserController extends BaseController {
   _controller = UserController;
-  _name = 'user';
   _dao = UserDAO;
+  _baseRoute = '/usuarios';
+  _templatePath = 'users';
+
+  @route('get', '/login', noAuth)
+  getLogin(req, res) {
+    return res.render('users/login.html');
+  }
 
   @route('post', '/login', noAuth)
-  async login(req, res) {
+  async postLogin(req, res) {
     const { username, password } = req.body;
     if (!username || !password) {
-      throw new Error('400:Form.UNFILLED');
+      return res.status(400).render('users/login.html', { error: 'Form.UNFILLED' });
     }
 
     const user = await this._dao.authenticate(username, password);
     if (!user) {
-      throw new Error('422:User.WRONG_CREDENTIALS');
+      return res.status(422).render('users/login.html', { error: 'User.WRONG_CREDENTIALS' });
     }
 
-    const jwt = res.jwt({ id: user.id, name: user.name });
-    res.send(jwt.token);
-  }
-
-  @route('get', '/user')
-  async new(req, res) {
-    const users = await this._dao.find({});
-    return res.render('users/index.html', { users });
-  }
-
-  @route('get', '/user/:id')
-  async read(req, res) {
-    const user = await this._dao.findOne({ id: req.params.id });
-    return res.render('users/read.html', { user });
+    res.jwt({ id: user.id, name: user.name });
+    res.redirect('/');
   }
 }

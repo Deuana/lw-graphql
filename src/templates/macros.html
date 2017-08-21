@@ -1,0 +1,90 @@
+{% macro toast(message, color) %}
+  <script>
+    setTimeout(function() { toast('{{message}}', '{{color}}'); }, 500);
+  </script>
+{% endmacro %}
+
+{% macro delete_modal(message) %}
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">{{message}}</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger">Remover</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro bind_modal_triggers(nextUrl) %}
+<script>
+$('.modal-trigger').on('click', function() {
+  var actionUrl = $(this).data('url');
+  $('.modal .btn-danger').unbind('click');
+  $('.modal .btn-danger').on('click', function() {
+    $.ajax({ url: actionUrl, method: 'DELETE' })
+      .done(function() { location.href = '{{nextUrl}}'; });
+  });
+});
+</script>
+{% endmacro %}
+
+{% macro bind_patch_action(id, nextUrl) %}
+<script>
+  $('#{{id}}').submit(function (e) {
+    var $this = $(this);
+    e.preventDefault();
+    $.ajax({
+      type: 'PATCH',
+      url: $this.attr('action'),
+      data: $this.serialize(),
+      success: function() {
+        location.href = '{{nextUrl}}';
+      },
+      error: function () {
+        toast('Ocorreu um erro. Favor tente novamente mais tarde.', 'danger');
+      },
+    });
+  });
+</script>
+{% endmacro %}
+
+{% macro render_index(controller, attributes, items, dicts) %}
+  {{delete_modal("Tem certeza que deseja remover?")}}
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        {% for attribute in attributes %}
+        <th>{{attribute.label}}</th>
+        {% endfor %}
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+        <tr>
+          {% for attribute in attributes %}
+            {% set dict = dicts[attribute.key] %}
+            <td>{{item[attribute.key] | safe if not dict else dict[item[attribute.key]]}}</td>
+          {% endfor %}
+          <td class="editing-buttons">
+            <a href="/{{controller}}/{{item.id}}/editar" class="material-icons">mode_edit</a>
+            <a
+              class="modal-trigger material-icons"
+              href="#"
+              data-url="/{{controller}}/{{item.id}}"
+              data-toggle="modal"
+              data-target="#modal"
+            >
+              delete
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="btn btn-success floating" href="/{{controller}}/novo">+</a>
+  {{bind_modal_triggers("/" + controller)}}
+{% endmacro %}

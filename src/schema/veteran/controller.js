@@ -1,31 +1,25 @@
 import BaseController, { route } from '~/src/schema/base/controller';
+import Rank, { groupedRanks } from '~/src/schema/enums/rank';
+
 import VeteranDAO from './dao';
 
 export default class VeteranController extends BaseController {
   _controller = VeteranController;
-  _name = 'veteran';
   _dao = VeteranDAO;
+  _baseRoute = '/militares';
+  _templatePath = 'veterans';
 
-  @route('get', '/veteran')
-  async index(_, res) {
-    const veteran = await this._dao.find({});
-    return res.render('veteran/index.html', { veteran });
+  async index(_, res, ctx = {}) {
+    const veterans = await this._dao.all();
+    return res.render('veterans/index.html', { Rank, veterans });
   }
 
-  @route('get', '/veteran/new')
-  new(_, res) {
-    return res.render('veteran/new.html');
+  async new(_, res, ctx = {}) {
+    return res.render('veterans/new.html', { Rank, groupedRanks, ...ctx });
   }
 
-  @route('get', '/veteran/:id')
-  async read(req, res) {
-    const veteran = await this._dao.findOne({ id: req.params.id });
-    return res.render('veteran/read.html', { veteran });
-  }
-
-  @route('get', '/veteran/:id/edit')
   async edit(req, res) {
     const veteran = await this._dao.findOne({ id: req.params.id });
-    return res.render('veteran/edit.html', { veteran });
+    return res.render('veterans/edit.html', { Rank, groupedRanks, ...veteran._doc });
   }
 }

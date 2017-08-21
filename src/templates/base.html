@@ -1,0 +1,33 @@
+{% from "macros.html" import toast %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="iso-8859-1" />
+  <title>Reserva</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  {% block css %}{% endblock %}
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  {% block navbar %}{% endblock %}
+  <main class="main">{% block main %}{% endblock %}</main>
+  <div class="alert-wrapper">
+    <div class="alert alert-dismissable fade">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <div class="alert-message"></div>
+    </div>
+  </div>
+  {% if error %}{{toast(error | extractError, 'danger')}}{% endif %}
+
+  <script src="/js/base.js"></script>
+  {% block script %}{% endblock %}
+</body>
+</html>

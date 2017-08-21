@@ -1,0 +1,12 @@
+{% from "macros.html" import render_index, bind_modal_triggers %}
+
+{% extends "index.html" %}
+
+{% block main %}
+<div class="StockItemsList index-table">
+  {% set attributes = [
+    { 'label': 'Descrição', 'key': 'description' }
+  ] %}
+  {{render_index('estoques/' + id + '/items', attributes, items)}}
+</div>
+{% endblock %}

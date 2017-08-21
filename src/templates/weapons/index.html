@@ -1,0 +1,14 @@
+{% from "macros.html" import render_index, bind_modal_triggers %}
+
+{% extends "index.html" %}
+
+{% block main %}
+<div class="WeaponList index-table">
+  {% set attributes = [
+    { 'label': 'Número de série', 'key': 'serialNumber' },
+    { 'label': 'Modelo', 'key': 'model' },
+    { 'label': 'Fabricante', 'key': 'manufacturer' }
+  ] %}
+  {{render_index('armamentos', attributes, weapons)}}
+</div>
+{% endblock %}

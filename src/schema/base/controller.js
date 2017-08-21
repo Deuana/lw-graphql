@@ -1,10 +1,16 @@
+import { pickBy, identity, ary } from 'lodash';
 import { userLogged } from '~/src/utils/auth';
 
 export const route = (method, path, auth = userLogged) => (
   (target, property, descriptor) => {
-    function get(req, res) {
-      auth(req);
-      descriptor.value.bind(this)(req, res);
+    async function get(req, res) {
+      try {
+        auth(req);
+        await descriptor.value.bind(this)(req, res);
+      } catch(e) {
+        const [code, message] = e.message.split(':');
+        res.status(code).send(message);
+      }
     }
     get.route = path;
     get.method = method;
@@ -18,32 +24,48 @@ export default class BaseController {
     Object.getOwnPropertyNames(prototype)
       .map(methodName => Object.getOwnPropertyDescriptor(prototype, methodName))
       .filter(descriptor => descriptor.get)
-      .forEach(({ get }) => {
-        const fn = async (req, res) => {
-          try { await get.bind(this)(req, res); }
-          catch(e) {
-            const [code, message] = e.message.split(':');
-            res.status(code).send(message);
-          }
-        };
-        app[get.method](get.route, fn);
-      });
+      .forEach(({ get }) => app[get.method](get.route, get.bind(this)));
 
-    const name = this._name;
-    app.post(`/${name}`, this.create.bind(this));
-    app.patch(`/${name}/:id`, this.update.bind(this));
-    app.delete(`/${name}/:id`, this.delete.bind(this));
+    const baseRoute = this._baseRoute;
+    app.get(baseRoute, this.index.bind(this));
+    app.get(`${baseRoute}/novo`, ary(this.new.bind(this), 2));
+    app.post(baseRoute, this.create.bind(this));
+    app.get(`${baseRoute}/:id/editar`, this.edit.bind(this));
+    app.patch(`${baseRoute}/:id`, this.update.bind(this));
+    app.delete(`${baseRoute}/:id`, this.delete.bind(this));
+  }
+
+  async index(req, res) {
+    const instances = { [this._templatePath]: await this._dao.all() };
+    return res.render(`${this._templatePath}/index.html`, instances);
+  }
+
+  async new(_, res, ctx = {}) {
+    return res.render(`${this._templatePath}/new.html`, ctx);
   }
 
   async create(req, res) {
-    return res.json(await this._dao.create(req.body));
+    try {
+      await this._dao.create(req.body);
+    } catch(e) {
+      res.status(400);
+      return await this.new(req, res, { error: e.message, ...req.body });
+    }
+
+    res.redirect(this._baseRoute);
+  }
+
+  async edit(req, res) {
+    const instance = await this._dao.findOne({ id: req.params.id });
+    return res.render(`${this._templatePath}/edit.html`, instance);
   }
 
   async update(req, res) {
-    return res.json(await this._dao.update(req.params.id, req.body));
+    const args = pickBy(req.body, identity);
+    return res.json(await this._dao.update(req.params.id, args));
   }
 
   async delete(req, res) {
-    return res.json(await this._dao.delete(req.params.id));
+    return res.json(await this._dao.remove({ id: req.params.id }));
   }
 }

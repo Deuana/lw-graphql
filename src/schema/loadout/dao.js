@@ -9,7 +9,8 @@ export default class LoadoutDAO extends BaseDAO {
     delivered: Date,
     veteran: { type: String, ref: 'Veteran' },
     items: [{
-      item: { type: String, enum: StockItemValues },
+      kind: { type: String, enum: StockItemValues },
+      item: { type: String, refPath: 'items.kind' },
       quantity: Number,
     }],
   }));

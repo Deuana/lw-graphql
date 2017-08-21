@@ -1,7 +1,14 @@
-<ul>
-  {% for user in users %}
-    <li>
-      <b>{{user.name}}:</b> {{user.email}}
-    </li>
-  {% endfor %}
-</ul>
+{% from "macros.html" import render_index %}
+
+{% extends "index.html" %}
+
+{% block main %}
+<div class="UserList index-table">
+  {% set attributes = [
+    { 'label': 'Nome', 'key': 'name' },
+    { 'label': 'Email', 'key': 'email' },
+    { 'label': 'Usuário', 'key': 'username' }
+  ] %}
+  {{render_index('usuarios', attributes, users)}}
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+body {
+  background-image: url("../images/military-bg.jpg");
+  background-color: #0f3e1f;
+  color: yellowgreen;
+}
+
+a {
+  color: yellowgreen;
+}
+
+a:hover {
+  color: greenyellow;
+}
+
+a.material-icons:hover {
+  text-decoration: none;
+}
+
+.alert-wrapper {
+  position: fixed;
+  width: 100%;
+  bottom: 16px;
+}
+
+.alert-wrapper .alert {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.form-group.mandatory {
+  position: relative;
+}
+
+.form-group.mandatory:after {
+  content: '*';
+  position: absolute;
+  right: -12px;
+  top: 6px;
+  color: red;
+}
+
+.card {
+  width: 320px;
+  margin: 24px auto;
+  background-color: rgba(40, 167, 69, 0.4);
+}
+
+.modal {
+  color: black;
+}
+
+.LogoEscudo {
+  text-align: center;
+  margin: auto;
+  width: 400px;
+  font-size: 32px;
+  text-shadow: 2px 2px 4px #000;
+}
+
+.LogoEscudo img {
+  width: 280px;
+}
+
+.btn.floating {
+  position: fixed;
+  bottom: 10%;
+  right: 10%;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 23px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+td.editing-buttons {
+  padding: .75em 0;
+  width: 54px;
+}
+
+.index-table {
+  width: 80%;
+  margin: 24px auto;
+}

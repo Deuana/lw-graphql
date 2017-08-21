@@ -1,0 +1,17 @@
+{% from "macros.html" import render_index, bind_modal_triggers %}
+
+{% extends "index.html" %}
+
+{% block main %}
+<div class="LoadoutsList">
+  {% set attributes = [
+    { 'label': 'Data de empréstimo', 'key': 'lent' },
+    { 'label': 'Data de entrega', 'key': 'delivered' },
+    { 'label': 'Militar', 'key': 'veteran' },
+  ] %}
+  {{render_index('armamentos', attributes, loadouts)}}
+</div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
