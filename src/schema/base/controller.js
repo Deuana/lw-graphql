@@ -1,4 +1,4 @@
-import { pickBy, identity } from 'lodash';
+import { pickBy, identity, ary } from 'lodash';
 import { userLogged } from '~/src/utils/auth';
 
 export const route = (method, path, auth = userLogged) => (
@@ -28,7 +28,7 @@ export default class BaseController {
 
     const baseRoute = this._baseRoute;
     app.get(baseRoute, this.index.bind(this));
-    app.get(`${baseRoute}/novo`, this.new.bind(this));
+    app.get(`${baseRoute}/novo`, ary(this.new.bind(this), 2));
     app.post(baseRoute, this.create.bind(this));
     app.get(`${baseRoute}/:id/editar`, this.edit.bind(this));
     app.patch(`${baseRoute}/:id`, this.update.bind(this));
@@ -40,7 +40,7 @@ export default class BaseController {
     return res.render(`${this._templatePath}/index.html`, instances);
   }
 
-  new(_, res, ctx = {}) {
+  async new(_, res, ctx = {}) {
     return res.render(`${this._templatePath}/new.html`, ctx);
   }
 

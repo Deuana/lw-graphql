@@ -17,9 +17,6 @@ export const configureRoutes = (app) => {
 };
 
 export const configureNunjucks = (app) => {
-  const env = nunjucks.configure('src/templates', {
-    autoescape: true,
-    express: app,
-  });
+  const env = nunjucks.configure('src/templates', { express: app });
   env.addFilter('extractError', (errorCode) => extractError(errorCode));
 };

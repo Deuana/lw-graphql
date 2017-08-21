@@ -14,7 +14,7 @@ export default class VeteranController extends BaseController {
     return res.render('veterans/index.html', { Rank, veterans });
   }
 
-  new(_, res, ctx = {}) {
+  async new(_, res, ctx = {}) {
     return res.render('veterans/new.html', { Rank, groupedRanks, ...ctx });
   }
 
