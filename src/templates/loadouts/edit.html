@@ -3,10 +3,10 @@
 {% extends "index.html" %}
 
 {% block main %}
-  <div class="EditWeapon card">
-    <h4 class="card-header">Atualizar empréstimo</h4>
+  <div class="EditLoadout card">
+    <h4 class="card-header">Atualizar cautela</h4>
     <div class="card-body">
-      <form id="updateWeapon" action="/loadouts/{{id}}">
+      <form id="updateLoadout" action="/cautelas/{{id}}">
         {% include "./_form.html" %}
         <button class="btn btn-success btn-block">Atualizar</button>
       </form>
@@ -15,5 +15,5 @@
 {% endblock %}
 
 {% block script %}
-  {{ bind_patch_action("updateWeapon", "/armamentos") }}
+  {{ bind_patch_action("updateLoadout", "/cautelas") }}
 {% endblock %}

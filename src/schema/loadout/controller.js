@@ -43,7 +43,7 @@ export default class LoadoutController extends BaseController {
         stocksDict[item.stock.id][item.item.id].quantity -= item.quantity;
       });
 
-    return res.render('loadouts/new.html', { veterans, stocks, kinds, ...ctx });
+    return res.render('loadouts/new.html', { veterans, stocks, kinds, selectedOptions: [], ...ctx });
   }
 
   async create(req, res) {
@@ -63,10 +63,11 @@ export default class LoadoutController extends BaseController {
   }
 
   async edit(req, res) {
+    const loadout = await this._dao.read(req.params.id);
     const [veterans, stocks, loadouts] = await Promise.all([
       VeteranDAO.all(),
       StockDAO.readAll(),
-      this._dao.readOpen(),
+      this._dao.readOpen(loadout.veteran.id),
     ]);
 
     const stocksDict = reduce(stocks, (obj, s) => ({
@@ -79,6 +80,34 @@ export default class LoadoutController extends BaseController {
         stocksDict[item.stock.id][item.item.id].quantity -= item.quantity;
       });
 
-    return res.render('loadouts/edit.html', { veterans, stocks, kinds });
+    const selectedOptions = loadout.items
+      .map(i => (`${i.stock.id}|${i.kind}|${i.item.id}|${i.quantity}`));
+
+    return res.render('loadouts/edit.html', {
+      ...loadout._doc,
+      selectedOptions,
+      veterans,
+      stocks,
+      kinds,
+    });
+  }
+
+  async update(req, res) {
+    const loadout = await this._dao.read(req.params.id);
+
+    const items = req.body.items
+      .map(i => i.split('|'))
+      .filter(i => parseInt(i[3], 10))
+      .map(([stock, kind, item, quantity]) => ({ stock, kind, item, quantity }));
+
+    try {
+      loadout.returned = new Date();
+      loadout.save();
+      await this._dao.lendItems(loadout.veteran.id, items);
+    } catch(e) {
+      return await this.new(req, res, { error: e.message, ...req.body });
+    }
+
+    return res.send('Ok');
   }
 }

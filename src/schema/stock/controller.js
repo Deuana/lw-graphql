@@ -11,6 +11,11 @@ export default class StockController extends BaseController {
   _baseRoute = '/estoques';
   _templatePath = 'stocks';
 
+  @route('get', '/estoques/novo')
+  async newStock(_, res, ctx = {}) {
+    return res.render(`${this._templatePath}/new.html`, ctx);
+  }
+
   async index(req, res) {
     const buildLink = (id, description) => (
       `<a href="/estoques/${id}">${description}</a>`

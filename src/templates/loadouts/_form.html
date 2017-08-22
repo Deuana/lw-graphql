@@ -1,5 +1,5 @@
 <div class="form-group mandatory">
-  <select name="veteran" class="form-control">
+  <select name="veteran" class="form-control" {{ "disabled" if veteran.id else "" }}>
     <option disabled {{"selected" if not veteran.id else ""}}>Militar</option>
     {% for iVeteran in veterans %}
       <option value="{{iVeteran.id}}" {{"selected" if iVeteran.id == veteran.id else ""}}>
@@ -9,16 +9,20 @@
   </select>
 </div>
 
-{% for stock in stocks %}
-  <h4>{{stock.description}}</h4>
-  {% for iItem in stock.items %}
+{% for iStock in stocks %}
+  <h4>{{iStock.description}}</h4>
+  {% for iItem in iStock.items %}
     <div class="form-group form-inline">
       <label>
         {{kinds[iItem.kind | upper]}} - {{iItem.item.description or iItem.item.model}}
       </label>
       <select name="items" class="form-control">
         {% for i in range(iItem.quantity + 1) %}
-          <option value="{{stock.id}}|{{iItem.kind}}|{{iItem.item.id}}|{{i}}">
+          {% set value = iStock.id + "|" + iItem.kind + "|" + iItem.item.id + "|" + i %}
+          <option
+            value="{{value}}"
+            {{ "selected" if value in selectedOptions else "" }}
+          >
             {{i}}
           </option>
         {% endfor %}

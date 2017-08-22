@@ -20,14 +20,22 @@ export default class LoadoutDAO extends BaseDAO {
     return this._model.find({}).populate('veteran items.item items.stock').exec();
   }
 
-  static readOpen() {
+  static read(id) {
+    return this._model.findOne({ id }).populate('veteran items.item items.stock').exec();
+  }
+
+  static readOpen(veteran) {
     return this._model
-      .find({ returned: undefined })
+      .find({ returned: undefined, veteran: { $ne: veteran } })
       .populate('veteran items.item items.stock')
       .exec();
   }
 
   static lendItems(veteran, items) {
+    if (!items) {
+      return;
+    }
+
     if (!veteran) {
       throw new Error('Form.UNFILLED');
     }
