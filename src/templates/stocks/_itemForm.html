@@ -4,7 +4,7 @@
     {% for kind in kinds %}
       <optgroup label="{{kind.label}}">
         {% for iItem in kind.items %}
-          <option value="{{kind.key}}|{{iItem.id}}" {{"selected" if iItem == item.id else ""}}>
+          <option value="{{kind.key}}|{{iItem.id}}" {{"selected" if iItem.id == item.id else ""}}>
             {{iItem.description}}
           </option>
         {% endfor %}

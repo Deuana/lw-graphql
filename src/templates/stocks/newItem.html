@@ -5,7 +5,7 @@
     <h4 class="card-header">Novo item na reserva</h4>
     <div class="card-body">
       <form  action="/estoques/{{stockId}}/items" method="POST">
-        {% include "./_newItemForm.html" %}
+        {% include "./_itemForm.html" %}
         <button class="btn btn-success btn-block">Cadastrar</button>
       </form>
     </div>

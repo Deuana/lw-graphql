@@ -67,7 +67,12 @@ $('.modal-trigger').on('click', function() {
         <tr>
           {% for attribute in attributes %}
             {% set dict = dicts[attribute.key] %}
-            <td>{{item[attribute.key] | safe if not dict else dict[item[attribute.key]]}}</td>
+            {% set value = item %}
+            {% for step in attribute.key.split('.') %}
+              {% set value = value[step] %}
+            {% endfor %}
+
+            <td>{{value | safe if not dict else dict[value]}}</td>
           {% endfor %}
           <td class="editing-buttons">
             <a href="/{{controller}}/{{item.id}}/editar" class="material-icons">mode_edit</a>

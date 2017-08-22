@@ -4,9 +4,14 @@
 
 {% block main %}
 <div class="StockItemsList index-table">
+  {% set dict = {
+    'kind': { 'Weapon': 'Arma', 'Ammo': 'Munição', 'Accessory': 'Acessório' }
+  } %}
   {% set attributes = [
-    { 'label': 'Descrição', 'key': 'description' }
+    { 'label': 'Tipo', 'key': 'kind' },
+    { 'label': 'Descrição', 'key': 'item.description' },
+    { 'label': 'Quantidade', 'key': 'quantity' }
   ] %}
-  {{render_index('estoques/' + id + '/items', attributes, items)}}
+  {{render_index('estoques/' + id + '/items', attributes, items, dict)}}
 </div>
 {% endblock %}

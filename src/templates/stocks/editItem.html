@@ -3,11 +3,11 @@
 {% extends "index.html" %}
 
 {% block main %}
-  <div class="EditStock card">
-    <h4 class="card-header">Editar estoque</h4>
+  <div class="EditStockItem card">
+    <h4 class="card-header">Editar item na reserva</h4>
     <div class="card-body">
-      <form id="updateStock" action="/estoques/{{id}}">
-        {% include "./_form.html" %}
+      <form id="updateStock" action="/estoques/{{stockId}}/items/{{_id}}">
+        {% include "./_itemForm.html" %}
         <button class="btn btn-success btn-block">Atualizar</button>
       </form>
     </div>
@@ -15,5 +15,5 @@
 {% endblock %}
 
 {% block script %}
-  {{ bind_patch_action("updateStock", "/estoques") }}
+{{ bind_patch_action("updateStock", "/estoques/" + stockId) }}
 {% endblock %}
