@@ -81,3 +81,7 @@ td.editing-buttons {
   width: 80%;
   margin: 24px auto;
 }
+
+label + select {
+  margin-left: 16px;
+}

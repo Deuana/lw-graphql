@@ -6,12 +6,39 @@ export default class LoadoutDAO extends BaseDAO {
   static _model = mongoose.model('Loadout', new mongoose.Schema({
     id: { type: String, index: true },
     lent: Date,
-    delivered: Date,
+    returned: Date,
     veteran: { type: String, ref: 'Veteran' },
     items: [{
-      kind: { type: String, enum: StockItemValues },
+      kind: String,
       item: { type: String, refPath: 'items.kind' },
+      stock: { type: String, ref: 'Stock' },
       quantity: Number,
     }],
   }));
+
+  static all() {
+    return this._model.find({}).populate('veteran items.item items.stock').exec();
+  }
+
+  static readOpen() {
+    return this._model
+      .find({ returned: undefined })
+      .populate('veteran items.item items.stock')
+      .exec();
+  }
+
+  static lendItems(veteran, items) {
+    if (!veteran) {
+      throw new Error('Form.UNFILLED');
+    }
+
+    const loadout = new this._model({
+      lent: new Date(),
+      veteran,
+    });
+    loadout.id = loadout._id;
+
+    items.forEach(i => loadout.items.push(i));
+    return loadout.save();
+  }
 }

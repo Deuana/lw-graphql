@@ -1,17 +1,15 @@
-{% from "macros.html" import render_index, bind_modal_triggers %}
+{% from "macros.html" import render_index %}
 
 {% extends "index.html" %}
 
 {% block main %}
-<div class="LoadoutsList">
+<div class="LoadoutsList index-table">
   {% set attributes = [
+    { 'label': 'Militar', 'key': 'veteran.nickname' },
+    { 'label': 'Itens', 'key': 'description' },
     { 'label': 'Data de empréstimo', 'key': 'lent' },
-    { 'label': 'Data de entrega', 'key': 'delivered' },
-    { 'label': 'Militar', 'key': 'veteran' },
+    { 'label': 'Data de entrega', 'key': 'returned' }
   ] %}
-  {{render_index('armamentos', attributes, loadouts)}}
+  {{render_index('cautelas', attributes, loadouts)}}
 </div>
-{% endblock %}
-
-{% block script %}
 {% endblock %}

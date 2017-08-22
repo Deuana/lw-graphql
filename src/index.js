@@ -3,10 +3,13 @@ import bodyParser from 'body-parser';
 import nunjucks from 'nunjucks';
 import cookieParser from 'cookie-parser';
 import jwt from 'jwt-express';
+import moment from 'moment';
 
 import config from '~/src/config';
 import { connectDB } from '~/src/db';
 import { configureRoutes, configureNunjucks } from '~/src/setup';
+
+moment.locale('pt-br');
 
 connectDB();
 const app = express();

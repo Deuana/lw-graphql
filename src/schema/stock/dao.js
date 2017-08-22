@@ -14,6 +14,10 @@ export default class StockDAO extends BaseDAO {
     }],
   }));
 
+  static readAll() {
+    return this._model.find().populate('items.item').exec();
+  }
+
   static read(id) {
     return this._model.findOne({ id }).populate('items.item').exec();
   }
